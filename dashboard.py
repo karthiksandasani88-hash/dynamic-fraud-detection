@@ -12,8 +12,12 @@ st.set_page_config(
     layout="wide"
 )
 
-API_URL = "http://127.0.0.1:8000"
+import os
 
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000").rstrip("/")
+
+if not API_URL.startswith(("http://", "https://")):
+    API_URL = f"http://{API_URL}"
 # ---------------- SESSION STATE ----------------
 
 if "transactions" not in st.session_state:
